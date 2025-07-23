@@ -54,7 +54,7 @@
   </head>
   <body>
     <div class="vr-ui">
-      🥽 VR Mode Active!! Use arrow keys to move, press Esc to exit
+      🥽 VR Mode Active | WASD/Arrow keys to move | Click buttons & green spots | Mouse to look around
     </div>
 
     <a-scene vr-mode-ui="enabled: true" background="color: #0a0a23">
@@ -127,12 +127,29 @@
              color="#ec4899" 
              hover-glow
              animation="property: rotation; to: 0 5 0; dur: 10000; loop: true"
-             class="clickable">
+             class="clickable"
+             id="join-sprint-btn">
         <a-text value="Join the Sprint →" 
                 position="0 0 0.11" 
                 color="#ffffff" 
                 align="center" 
                 width="8"></a-text>
+      </a-box>
+
+      <!-- Back to Index button -->
+      <a-box position="0 0.5 -7" 
+             width="2.5" 
+             height="0.6" 
+             depth="0.2" 
+             color="#10b981" 
+             hover-glow
+             class="clickable"
+             id="back-to-index-btn">
+        <a-text value="← Back to Main Site" 
+                position="0 0 0.11" 
+                color="#ffffff" 
+                align="center" 
+                width="6"></a-text>
       </a-box>
 
       <!-- ABOUT SECTION - Left Platform -->
@@ -149,7 +166,7 @@
               color="#60a5fa"
               text="align: center; width: 16"></a-text>
       
-      <a-text value="Create VR/AR experiences using:\n• Unity 🎮\n• WebXR 🌐\n• Phone AR 📱\n\nBuild in ~10-15 hours\nGet a real VR headset!" 
+      <a-text value="Create VR/AR experiences using:\n• Unity 🎮\n• WebXR 🌐\n• Phone AR 📱\n\nBuild in ~5-20 hours\nGet a real VR headset!" 
               position="-10 1.8 -5" 
               mixin="glow-text"
               width="5"
@@ -249,7 +266,7 @@
              color="#1f2937" 
              rotation="0 15 0"
              hover-glow>
-        <a-text value="How much time do I need?\nAround 10–15 hours is great!\nYou can work solo or with a team." 
+        <a-text value="How much time do I need?\nAround 5–20 hours is great!\nYou can work solo or with a team." 
                 position="0 0 0.06" 
                 color="#34d399" 
                 align="center" 
@@ -331,7 +348,8 @@
              color="#5865f2" 
              hover-glow
              animation="property: scale; to: 1.1 1.1 1.1; dur: 2000; loop: true; dir: alternate"
-             class="clickable">
+             class="clickable"
+             id="discord-btn">
         <a-text value="Join #portal-vr →" 
                 position="0 0 0.16" 
                 color="#ffffff" 
@@ -340,7 +358,7 @@
       </a-box>
 
       <!-- Footer -->
-      <a-text value="Made with ❤️ by The Great Anirudh Sahu Bhaiya ji | YSWS 2025" 
+      <a-text value="Made with ❤️ by Anirudh Sahu | YSWS 2025" 
               position="0 -1 -25" 
               mixin="glow-text"
               width="4"
@@ -383,30 +401,56 @@
 
       <!-- Simple teleportation system -->
       <script>
-        document.querySelectorAll('.teleport-spot').forEach(spot => {
-          spot.addEventListener('click', function() {
-            const position = this.getAttribute('position');
-            const cameraRig = document.querySelector('#cameraRig');
-            cameraRig.setAttribute('position', `${position.x} 1.6 ${position.z}`);
-          });
-        });
-
-        // Add click sound effect
-        document.querySelectorAll('.clickable').forEach(element => {
-          element.addEventListener('click', function() {
-            // Visual feedback
-            this.setAttribute('animation__click', {
-              property: 'scale',
-              to: '1.1 1.1 1.1',
-              dur: 200
+        // Wait for A-Frame to load
+        document.addEventListener('DOMContentLoaded', function() {
+          // Teleportation system
+          document.querySelectorAll('.teleport-spot').forEach(spot => {
+            spot.addEventListener('click', function() {
+              const position = this.getAttribute('position');
+              const cameraRig = document.querySelector('#cameraRig');
+              cameraRig.setAttribute('position', `${position.x} 1.6 ${position.z}`);
             });
-            setTimeout(() => {
+          });
+
+          // Button click handlers with actual functionality
+          document.querySelectorAll('.clickable').forEach(element => {
+            element.addEventListener('click', function() {
+              // Visual feedback
               this.setAttribute('animation__click', {
                 property: 'scale',
-                to: '1 1 1',
+                to: '1.1 1.1 1.1',
                 dur: 200
               });
-            }, 200);
+              setTimeout(() => {
+                this.setAttribute('animation__click', {
+                  property: 'scale',
+                  to: '1 1 1',
+                  dur: 200
+                });
+              }, 200);
+
+              // Handle specific button actions
+              const buttonId = this.getAttribute('id');
+              
+              if (buttonId === 'join-sprint-btn') {
+                // Scroll to the join section or show info
+                window.open('https://hackclub.slack.com/archives/C096CPJ1HCN', '_blank');
+              } else if (buttonId === 'discord-btn') {
+                // Open Slack (Hack Club Slack channel)
+                window.open('https://hackclub.slack.com/archives/C096CPJ1HCN', '_blank');
+              } else if (buttonId === 'back-to-index-btn') {
+                // Go back to main site
+                window.location.href = 'index.html';
+              }
+            });
+          });
+
+          // Add hover sound feedback (optional)
+          document.querySelectorAll('.clickable, .teleport-spot').forEach(element => {
+            element.addEventListener('mouseenter', function() {
+              // Could add hover sound here
+              console.log('Hovering over interactive element');
+            });
           });
         });
       </script>

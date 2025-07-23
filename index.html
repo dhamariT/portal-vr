@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PortalVR – YSWS AR/VR Sprint</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
@@ -15,14 +14,22 @@
         Welcome to PortalVR
       </h1>
       <p class="mt-6 text-xl sm:text-2xl text-gray-300">
-        Build your own <span class="text-purple-400">VR or AR</span> world in YSWS and get rewarded with a real headset 🥽✨
+        Build your own <span class="text-purple-400">VR or AR</span> world in #portal-vr and get rewarded with a real headset 🥽✨
       </p>
-      <a href="#portal-vr" class="mt-8 inline-block bg-pink-600 hover:bg-pink-700 px-6 py-3 rounded-xl font-semibold text-lg transition">
-        Join the Sprint →
-      </a>
+      
+      <!-- Call-to-action buttons -->
+      <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <a href="https://forms.fillout.com/t/xb2rVCMEXsus" target="_blank" class="bg-green-600 hover:bg-green-700 px-8 py-4 rounded-xl font-bold text-xl transition-all duration-300 transform hover:scale-105 shadow-lg animate-pulse">
+          🎯 RSVP NOW!
+        </a>
+        <a href="https://hackclub.slack.com/archives/C096CPJ1HCN" class="bg-pink-600 hover:bg-pink-700 px-6 py-3 rounded-xl font-semibold text-lg transition">
+          Join the Sprint →
+        </a>
+      </div>
+      
       <a href="vr.html" target="_blank" class="mt-4 inline-block bg-indigo-700 hover:bg-indigo-800 px-4 py-2 rounded-lg text-white text-sm font-semibold">
-  🎮 View Website in VR Mode
-</a>
+        🎮 View Website in VR Mode
+      </a>
 
     </div>
   </section>
@@ -35,8 +42,51 @@
         PortalVR is a mini YSWS where you create your own virtual or augmented reality experience. From magical portals to space worlds,
         you can build anything using <span class="text-blue-400">Unity</span>, <span class="text-green-400">WebXR</span>, or <span class="text-yellow-400">Phone AR</span> apps.
       </p>
-      <p class="mt-4 text-lg text-gray-400">Build something awesome in ~10–15 hours, and we’ll ship you a real VR headset* to try it out!</p>
+      <p class="mt-4 text-lg text-gray-400">Build something awesome in ~5–20 hours, and we’ll ship you a real VR headset* to try it out!</p>
       <p class="text-xs mt-2 text-gray-500 italic">(*Basic headset, not Meta Quest)</p>
+    </div>
+  </section>
+  <section class="py-20 bg-gray-950 px-6 relative overflow-hidden" id="prizes">
+    <!-- VR Headset Background Image -->
+    <div class="absolute inset-0 flex items-center justify-center opacity-10">
+      <img src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?auto=format&fit=crop&w=600&h=400&q=80" 
+           alt="VR Headset" 
+           class="w-96 h-96 object-contain transform rotate-12 scale-150">
+    </div>
+    
+    <div class="max-w-4xl mx-auto text-center relative z-10">
+      <h2 class="text-4xl font-bold mb-8">🎁 What You Get</h2>
+      
+      <!-- VR Headset Hero Image -->
+      <div class="mb-8 flex justify-center">
+        <div class="relative">
+          <img src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?auto=format&fit=crop&w=400&h=300&q=80" 
+               alt="VR Headset Reward" 
+               class="w-64 h-48 object-cover rounded-2xl shadow-2xl border-4 border-purple-500 transform hover:scale-105 transition-transform duration-300">
+          <div class="absolute -top-2 -right-2 bg-yellow-400 text-black px-3 py-1 rounded-full text-sm font-bold animate-pulse">
+            FREE! 🎉
+          </div>
+        </div>
+      </div>
+      
+      <p class="text-xl text-gray-300 mb-4">Complete your project and we'll ship you a VR headset (up to $50) via Amazon.</p>
+      <p class="text-md text-gray-400 italic">It won't be a Meta Quest, but you can test your creation in real VR! 🥽</p>
+      
+      <!-- Additional visual elements -->
+      <div class="mt-8 flex justify-center space-x-8 text-center">
+        <div class="bg-gray-800 p-4 rounded-lg">
+          <div class="text-2xl mb-2">📦</div>
+          <p class="text-sm text-gray-300">Free Shipping</p>
+        </div>
+        <div class="bg-gray-800 p-4 rounded-lg">
+          <div class="text-2xl mb-2">🎮</div>
+          <p class="text-sm text-gray-300">Mobile VR</p>
+        </div>
+        <div class="bg-gray-800 p-4 rounded-lg">
+          <div class="text-2xl mb-2">🏆</div>
+          <p class="text-sm text-gray-300">Yours to Keep</p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -100,7 +150,7 @@
     <div class="max-w-3xl mx-auto text-center">
       <h2 class="text-4xl font-bold mb-4">🌌 Ready to enter the Portal?</h2>
       <p class="text-lg text-gray-200 mb-6">Join the challenge, bend reality, and earn your headset.</p>
-      <a href="https://discord.gg/your-channel" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-700 px-6 py-3 text-white text-lg font-semibold rounded-xl transition">
+      <a href="https://hackclub.slack.com/archives/C096CPJ1HCN" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-700 px-6 py-3 text-white text-lg font-semibold rounded-xl transition">
         Join #portal-vr →
       </a>
     </div>
