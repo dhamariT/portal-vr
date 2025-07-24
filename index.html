@@ -1,167 +1,382 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PortalVR – YSWS AR/VR Sprint</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal VR</title>
   <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-950 text-white font-sans leading-relaxed tracking-wide">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
-  <!-- HERO -->
-  <section class="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-gray-900 flex items-center justify-center px-8">
-    <div class="text-center max-w-2xl">
-      <h1 class="text-5xl sm:text-6xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-pink-500 to-purple-500 drop-shadow-lg">
-        Welcome to PortalVR
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    .orbitron { font-family: 'Orbitron', monospace; }
+
+    body {
+      color: #fff;
+ 
+    }
+    
+    #cbg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+
+      z-index: -1;
+      background: radial-gradient(circle at 30% 80%, #120033 0%, transparent 60%), #000;
+    }
+
+    .rainbow {
+      background: linear-gradient(47deg, #00d4ff, #ff00d4, #053cd4, #00ff88);
+      background-size: 280% 280%;
+      background-clip: text;
+
+
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shift 2.7s ease-in-out infinite;
+    }
+    
+    @keyframes shift {
+      0% { background-position: 0% 45%; }
+      33% { background-position: 70% 20%; }      100% { background-position: 0% 45%; }
+    }
+    
+    .box {
+      border: 1px solid #002fff;
+
+
+
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(5px);
+    }
+    
+    .btn:hover { transform: scale(1.08); }
+    .pw {
+  position: relative;
+  display: inline-block;
+}
+
+.ph {
+  font-family: 'Orbitron', sans-serif;
+  background: linear-gradient(90deg, #00fff7, #ff00c8);
+  -webkit-background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 8px rgb(15, 252, 240);
+}
+
+
+
+
+  </style>
+</head>
+<body class="orbitron">
+  
+  <canvas id="cbg"></canvas>
+  
+  <div class="min-h-screen orbitron flex items-center justify-center p-6">
+    
+    <div class="text-center my-32 max-w-4xl">
+<div class="pw mb-32">
+  <div class="ph text-9xl md:text-9xl">PORTAL VR</div>
+</div>
+
+      <h1 class="text-3xl md:text-4xl font-bold mb-8">
+        You Ship <span class="rainbow mb-4">VR application</span>
+        <div> We Ship  <span class="rainbow">VR HEADSET </span> to test your application!</div>
       </h1>
-      <p class="mt-6 text-xl sm:text-2xl text-gray-300">
-        Build your own <span class="text-purple-400">VR or AR</span> world in #portal-vr and get rewarded with a real headset 🥽✨
+
+      <p class="text-lg text-gray-300 mb-12 max-w-2xl mx-auto">
+        make cool VR/AR applications/games in 
+        <span class="text-cyan-400 font-bold">5-20 hours</span> 
+
+
+        and we ship a <span class="text-purple-400 font-bold">VR headset </span> to test your application! 
       </p>
-      
-      <!-- Call-to-action buttons -->
-      <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center items-center">
-        <a href="https://forms.fillout.com/t/xb2rVCMEXsus" target="_blank" class="bg-green-600 hover:bg-green-700 px-8 py-4 rounded-xl font-bold text-xl transition-all duration-300 transform hover:scale-105 shadow-lg animate-pulse">
-          🎯 RSVP NOW!
+
+      <div class="flex justify-center items-center mb-12 text-center">
+        <div class="box rounded px-20 mx-auto p-4">
+
+          <div class="text-xl font-bold text-cyan-400">HIGH</div>
+
+          <div class="text-sm text-gray-400">CREATIVITY</div>
+
+
+        </div>
+        <div class="box rounded px-20 mx-auto p-4">
+          <div class="text-xl font-bold text-purple-400">5-20Hr</div>
+          <div class="text-sm text-gray-400">TIME</div>
+        </div>
+        <div class="box rounded px-20 mx-auto p-4">
+
+          <div class="text-xl font-bold text-pink-400">$20-$70</div>
+          <div class="text-sm text-gray-400">VALUE</div>
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="https://forms.fillout.com/t/xb2rVCMEXsus" target="_blank" 
+
+           class="btn box rounded-lg px-8 py-4 bg-gradient-to-r from-green-800 to-blue-600 hover:from-blue-700 hover:to-cyan-400 transition-all duration-200 transform hover:scale-105">
+          <div class="orbitron font-bold text-lg">RSVP NOW</div>
         </a>
-        <a href="https://hackclub.slack.com/archives/C096CPJ1HCN" class="bg-pink-600 hover:bg-pink-700 px-6 py-3 rounded-xl font-semibold text-lg transition">
-          Join the Sprint →
+        <a href="vr.html" target="_blank" 
+      
+           class="btn box rounded-lg px-6 py-3 hover:bg-gray-700 transition-all duration-200 transform hover:scale-105 border border-gray-600 hover:border-cyan-400">
+
+           <div class="orbitron font-semibold">Check the VR world</div>
+        </a>
+        <a href="https://hackclub.slack.com/archives/C096CPJ1HCN" target="_blank" 
+           class="btn box rounded-lg px-8 py-4 bg-gradient-to-r from-cyan-500 to-purple-500 hover:from-cyan-400 hover:to-purple-400 transition-all duration-200 transform hover:scale-105">
+          <div class="orbitron font-bold text-lg">Join #portal-vr on Slack</div>
         </a>
       </div>
-      
-      <a href="vr.html" target="_blank" class="mt-4 inline-block bg-indigo-700 hover:bg-indigo-800 px-4 py-2 rounded-lg text-white text-sm font-semibold">
-        🎮 View Website in VR Mode
-      </a>
-
-    </div>
-  </section>
-
-  <!-- WHAT IS PORTALVR -->
-  <section class="py-20 bg-gray-900 px-6" id="about">
-    <div class="max-w-5xl mx-auto text-center">
-      <h2 class="text-4xl font-bold mb-6">What is PortalVR?</h2>
-      <p class="text-lg text-gray-300">
-        PortalVR is a mini YSWS where you create your own virtual or augmented reality experience. From magical portals to space worlds,
-        you can build anything using <span class="text-blue-400">Unity</span>, <span class="text-green-400">WebXR</span>, or <span class="text-yellow-400">Phone AR</span> apps.
-      </p>
-      <p class="mt-4 text-lg text-gray-400">Build something awesome in ~5–20 hours, and we’ll ship you a real VR headset* to try it out!</p>
-      <p class="text-xs mt-2 text-gray-500 italic">(*Basic headset, not Meta Quest)</p>
-    </div>
-  </section>
-  <section class="py-20 bg-gray-950 px-6 relative overflow-hidden" id="prizes">
-    <!-- VR Headset Background Image -->
-    <div class="absolute inset-0 flex items-center justify-center opacity-10">
-      <img src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?auto=format&fit=crop&w=600&h=400&q=80" 
-           alt="VR Headset" 
-           class="w-96 h-96 object-contain transform rotate-12 scale-150">
     </div>
     
-    <div class="max-w-4xl mx-auto text-center relative z-10">
-      <h2 class="text-4xl font-bold mb-8">🎁 What You Get</h2>
+  </div>
+
+  <div class="py-16 px-6">
+    <div class="max-w-2xl mx-auto text-center">
+      <h2 class="rainbow text-5xl orbitron font-bold mb-8">What is PortalVR?</h2>
+
+      <div class="box rounded-lg p-8 text-lg text-gray-300 leading-relaxed">
+        <div class="mb-4">PortalVR is a YSWS where You ship a VR/AR application/game build using Unity, GoDot, WebXR, Phone AR apps or whatever you like if it supports VR/AR</div>
+
+        <div class="mb-4">Build something awesome in ~5-20 hours, and we'll ship you a VR headset to try it on!</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="py-16 px-6">
+    <div class="max-w-6xl mx-auto text-center">
+      <h2 class="rainbow text-5xl orbitron font-bold mb-12">Choose Your Tier !!!!</h2>
       
-      <!-- VR Headset Hero Image -->
-      <div class="mb-8 flex justify-center">
-        <div class="relative">
-          <img src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?auto=format&fit=crop&w=400&h=300&q=80" 
-               alt="VR Headset Reward" 
-               class="w-64 h-48 object-cover rounded-2xl shadow-2xl border-4 border-purple-500 transform hover:scale-105 transition-transform duration-300">
-          <div class="absolute -top-2 -right-2 bg-yellow-400 text-black px-3 py-1 rounded-full text-sm font-bold animate-pulse">
-            FREE! 🎉
+      <div class="grid md:grid-cols-3 gap-8">
+        
+        <div class="box rounded-lg p-8 hover:scale-105 transition-transform">
+          <div class="text-cyan-400 text-4xl orbitron font-bold mb-4">STARTER</div>
+
+          <div class="mb-4">
+            <img src="https://m.media-amazon.com/images/I/41YK5VlzAAL._UF1000,1000_QL80_.jpg"
+            
+                 class="w-48 h-36 mx-auto rounded-lg object-cover border border-cyan-400">
+          </div>
+          <div class="text-2xl font-bold mb-2">3-5 Hours + Basic Creativity</div>
+          <div class="text-green-400 text-xl font-bold mb-6">$20 Budget</div>
+          <div class="text-gray-300 text-left space-y-3">
+            <div> Google Cardboard or A Basic Headset</div>
+            <div>Simple project </div>
+            <div> Perfect for beginners</div>
+          </div>
+        </div>
+        
+        <div class="box rounded-lg p-8 hover:scale-105 transition-transform border-2 border-purple-500">
+
+          <div class="text-purple-400 text-4xl orbitron font-bold mb-4">PRO</div>
+          <div class="mb-4">
+            <img src="https://m.media-amazon.com/images/I/61p44dNm4GL._AC_UY218_.jpg" 
+                 class="w-48 h-36 mx-auto rounded-lg object-cover border border-purple-400">
+          </div>
+          <div class="text-2xl font-bold mb-2">5-10 Hours + Unique + Advanced Creativity</div>
+
+          <div class="text-green-400 text-xl font-bold mb-6">$40 Budget</div>
+          <div class="text-gray-300 text-left space-y-3">
+            <div> Advanced VR headset</div>
+            <div> Intermediate project</div>
+            <div> Multi platform support</div>
+            <div>Bonus Development tools</div>
+          </div>
+        </div>
+        
+        <div class="box rounded-lg p-8 hover:scale-105 transition-transform border-2 border-red-500">
+          <div class="text-pink-400 text-4xl orbitron font-bold mb-4">LEGENDS</div>
+          <div class="mb-4">
+            <img src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?w=200&h=150&fit=crop&crop=center" 
+                 
+                 class="w-48 h-36 mx-auto rounded-lg object-cover border border-pink-400">
+
+          </div>
+          <div class="text-2xl font-bold mb-2">10-20 Hours + MASTERPIECE</div>
+          <div class="text-green-400 text-xl font-bold mb-6">$70 Budget</div>
+
+          <div class="text-gray-300 text-left space-y-3">
+            <div>Premium VR headset + controllers</div>
+            <div>Complex game/app </div>
+            <div>AR + VR integration</div>
+          </div>
+        </div>
+        
+      </div>
+      
+      <div class="mt-12 text-gray-400">
+        <p>The tiers are not solely on the hours spent if you spend 20 hr making a basic project, it will still be considered a starter project</p>
+
+      </div>
+      
+    </div>
+  </div>
+
+  <div class="py-16 px-6">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="rainbow text-5xl orbitron font-bold mb-12">FAQ</h2>
+      
+      <div class="space-y-4 text-left">
+        
+        <div class="box rounded-lg overflow-hidden">
+          <button class="faq-btn w-full p-6 text-left hover:bg-gray-800/50 transition-all" onclick="tg(0)">
+            <div class="flex justify-between items-center">
+
+              <h3 class="text-lg font-semibold text-cyan-400">What platforms can I use to build VR apps?</h3>
+              <span class="faq-icon text-2xl transition-transform">+</span>
+            </div>
+          </button>
+          <div class="fans hidden p-6 pt-0 text-gray-300">
+            <p>You can use any platform you're comfortable with, Popular options include Unity, Godot, WebXR, Unreal Engine, or even phone AR apps, we support all VR development platforms</p>
+          </div>
+        </div>
+        <div class="box rounded-lg overflow-hidden">
+
+
+          <button class="faq-btn w-full p-6 text-left hover:bg-gray-800/50 transition-all" onclick="tg(1)">
+            <div class="flex justify-between items-center">
+
+              <h3 class="text-lg font-semibold text-green-400">I'm a complete beginner what to do?</h3>
+              <span class="faq-icon text-2xl transition-transform">+</span>
+            </div>
+          </button>
+          <div class="fans hidden p-6 pt-0 text-gray-300">
+            <p>Perfect!!! The STARTER tier is designed for beginners, we provide guides, and workshop to help you build your first VR application</p>
+          </div>
+        </div>
+
+        <div class="box rounded-lg overflow-hidden">
+          <button class="faq-btn w-full p-6 text-left hover:bg-gray-800/50 transition-all" onclick="tg(2)">
+            <div class="flex justify-between items-center">
+              <h3 class="text-lg font-semibold text-purple-400">How is the Headset shipped?</h3>
+
+              <span class="faq-icon text-2xl transition-transform">+</span>
+
+            </div>
+          </button>
+          <div class="fans hidden p-6 pt-0 text-gray-300">
+            <p>The headset will shipped to you through Amazon or another reliable source, we will try to ensure its shipped from your country so NO customs</p>
+          </div>
+        </div>
+
+        <div class="box rounded-lg overflow-hidden">
+          <button class="faq-btn w-full p-6 text-left hover:bg-gray-800/50 transition-all" onclick="tg(3)">
+            <div class="flex justify-between items-center">
+
+              <h3 class="text-lg font-semibold text-pink-400">Can I use AI or do Vibe Coding</h3>
+              <span class="faq-icon text-2xl transition-transform">+</span>
+            </div>
+          </button>
+          <div class="fans hidden p-6 pt-0 text-gray-300">
+            <p>A VERY BIG NOOOO, you are supposed to create your own application. You can take help from AI but if the usage is more then 50% you will be rejected</p>
+
+          </div>
+        </div>
+
+        
+
+        <div class="box rounded-lg overflow-hidden">
+          <button class="faq-btn w-full p-6 text-left hover:bg-gray-800/50 transition-all" onclick="tg(4)">
+            <div class="flex justify-between items-center">
+              <h3 class="text-lg font-semibold text-cyan-400">What determines which tier I qualify for?</h3>
+              <span class="faq-icon text-2xl transition-transform">+</span>
+            </div>
+          </button>
+          <div class="fans hidden p-6 pt-0 text-gray-300">
+            <p>Tiers are based on project complexity and creativity not just hours spent, a simple 20 hour project might be STARTER tier. we evaluate based on originality, technical implementation, and user experience</p>
+          </div>
+        </div>
+        <div class="box rounded-lg overflow-hidden">
+          <button class="faq-btn w-full p-6 text-left hover:bg-gray-800/50 transition-all" onclick="tg(5)">
+            <div class="flex justify-between items-center">
+              <h3 class="text-lg font-semibold text-orange-400">Can I double dip it with SoM?</h3>
+              <span class="faq-icon text-2xl transition-transform">+</span>
+            </div>
+          </button>
+          <div class="fans hidden p-6 pt-0 text-gray-300">
+            <p>We are working on making it possible to double dip with some but right now it's not allowed</p>
           </div>
         </div>
       </div>
       
-      <p class="text-xl text-gray-300 mb-4">Complete your project and we'll ship you a VR headset (up to $50) via Amazon.</p>
-      <p class="text-md text-gray-400 italic">It won't be a Meta Quest, but you can test your creation in real VR! 🥽</p>
-      
-      <!-- Additional visual elements -->
-      <div class="mt-8 flex justify-center space-x-8 text-center">
-        <div class="bg-gray-800 p-4 rounded-lg">
-          <div class="text-2xl mb-2">📦</div>
-          <p class="text-sm text-gray-300">Free Shipping</p>
-        </div>
-        <div class="bg-gray-800 p-4 rounded-lg">
-          <div class="text-2xl mb-2">🎮</div>
-          <p class="text-sm text-gray-300">Mobile VR</p>
-        </div>
-        <div class="bg-gray-800 p-4 rounded-lg">
-          <div class="text-2xl mb-2">🏆</div>
-          <p class="text-sm text-gray-300">Yours to Keep</p>
-        </div>
-      </div>
     </div>
-  </section>
+  </div>
 
-  <!-- INSPIRATIONAL PROJECTS -->
-  <section class="py-20 bg-gradient-to-br from-black to-gray-900 px-6" id="projects">
-    <div class="max-w-6xl mx-auto">
-      <h2 class="text-4xl font-bold text-center mb-12">🌟 Inspirational Projects</h2>
-      <div class="grid md:grid-cols-3 gap-8">
-        <div class="bg-gray-800 p-6 rounded-xl hover:scale-105 transition">
-          <h3 class="text-xl font-bold mb-2">🧠 VR Meditation Space</h3>
-          <p class="text-gray-300">A peaceful, guided meditation room built in WebXR with calming soundscapes.</p>
-        </div>
-        <div class="bg-gray-800 p-6 rounded-xl hover:scale-105 transition">
-          <h3 class="text-xl font-bold mb-2">🚀 Space Explorer AR</h3>
-          <p class="text-gray-300">Scan a table and launch planets into orbit using mobile AR and image tracking.</p>
-        </div>
-        <div class="bg-gray-800 p-6 rounded-xl hover:scale-105 transition">
-          <h3 class="text-xl font-bold mb-2">🏛️ VR History Tour</h3>
-          <p class="text-gray-300">Walk through ancient Greece in VR, complete with 3D voice narration and hotspots.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+<script>
+function tg(index) {
+  const answers = document.querySelectorAll('.fans');
+  const icons = document.querySelectorAll('.faq-icon');
+  
+  const answer = answers[index];
+  const icon = icons[index];
+  
+  if (answer.classList.contains('hidden')) {
+    answer.classList.remove('hidden');
+    icon.textContent = '-';
+    icon.style.transform = 'rotate(180deg)';
+  } else {
+    answer.classList.add('hidden');
+    icon.textContent = '+';
+    icon.style.transform = 'rotate(0deg)';
+  }
+}
+</script>
 
-  <!-- WHAT YOU GET -->
-  <section class="py-20 bg-gray-950 px-6" id="prizes">
-    <div class="max-w-4xl mx-auto text-center">
-      <h2 class="text-4xl font-bold mb-8">🎁 What You Get</h2>
-      <p class="text-xl text-gray-300 mb-4">Complete your project and we’ll ship you a VR headset (up to $50) via Amazon.</p>
-      <p class="text-md text-gray-400 italic">It won’t be a Meta Quest, but you can test your creation in real VR! 🥽</p>
-    </div>
-  </section>
+<script>
+  const canvas = document.getElementById('cbg');
+const ctx = canvas.getContext('2d');
+let pp = [];
 
-  <!-- FAQ -->
-  <section class="py-20 bg-gray-900 px-6" id="faq">
-    <div class="max-w-4xl mx-auto">
-      <h2 class="text-4xl font-bold text-center mb-12">❓ FAQ</h2>
-      <div class="space-y-6">
-        <div>
-          <h3 class="text-xl font-semibold text-pink-400">How much time do I need to spend?</h3>
-          <p class="text-gray-300">Around 10–15 hours is great! You can work solo or with a team.</p>
-        </div>
-        <div>
-          <h3 class="text-xl font-semibold text-pink-400">Can I use my phone for AR?</h3>
-          <p class="text-gray-300">Yes! You can use tools like 8thWall, Adobe Aero, or Unity AR Foundation to build phone-based AR.</p>
-        </div>
-        <div>
-          <h3 class="text-xl font-semibold text-pink-400">Do I get to keep the headset?</h3>
-          <p class="text-gray-300">Yes, it’s yours to keep and use for future projects!</p>
-        </div>
-        <div>
-          <h3 class="text-xl font-semibold text-pink-400">Will it support SteamVR?</h3>
-          <p class="text-gray-300">No, this is a basic mobile VR headset (no PC or 6DOF support).</p>
-        </div>
-      </div>
-    </div>
-  </section>
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
 
-  <!-- JOIN CTA -->
-  <section class="py-20 bg-gradient-to-br from-purple-800 via-indigo-800 to-gray-900 px-6" id="portal-vr">
-    <div class="max-w-3xl mx-auto text-center">
-      <h2 class="text-4xl font-bold mb-4">🌌 Ready to enter the Portal?</h2>
-      <p class="text-lg text-gray-200 mb-6">Join the challenge, bend reality, and earn your headset.</p>
-      <a href="https://hackclub.slack.com/archives/C096CPJ1HCN" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-700 px-6 py-3 text-white text-lg font-semibold rounded-xl transition">
-        Join #portal-vr →
-      </a>
-    </div>
-  </section>
+function makepp() {
+  return {
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    vx: (Math.random() - 0.5) * 0.4,
+    vy: (Math.random() - 0.5) * 0.25,
+    size: Math.random() * 2 + 0.8
+  };
+}
 
-  <footer class="py-6 text-center text-gray-500 text-sm bg-gray-950 border-t border-gray-800">
-    Made with ❤️ by The Great Anirudh Sahu Bhaiya ji | YSWS 2025
-  </footer>
+function anim() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  
+  pp.forEach(p => {
+    p.x += p.vx;
+    p.y += p.vy;
+    
+    if (p.x < 0 || p.x > canvas.width) p.vx = -p.vx;
+    if (p.y < 0 || p.y > canvas.height) p.vy = -p.vy;
+    
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+    ctx.fillStyle = '#00d4ff';
+    ctx.fill();
+  });
+  
+  requestAnimationFrame(anim);
+}
 
+resize();
+for (let i = 0; i < 30; i++) {
+  pp.push(makepp());
+}
+anim();
 
+window.addEventListener('resize', resize);
+</script>
 
+<div class="py-8 text-center text-white bg-gray-900 text-lg border-t border-gray-800">
+  Built By Anirudh Sahu ❤️
+</div>
 
 </body>
+
 </html>
