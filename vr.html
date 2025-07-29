@@ -1,459 +1,625 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>PortalVR - Full VR Experience</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
-    <script>
-      // Custom component for smooth text animations
-      AFRAME.registerComponent('float-animation', {
-        init: function () {
-          this.el.setAttribute('animation', {
-            property: 'position',
-            to: this.el.getAttribute('position').x + ' ' + (this.el.getAttribute('position').y + 0.3) + ' ' + this.el.getAttribute('position').z,
-            dur: 3000,
-            easing: 'easeInOutSine',
-            loop: true,
-            dir: 'alternate'
-          });
-        }
-      });
-
-      // Component for hover effects
-      AFRAME.registerComponent('hover-glow', {
-        init: function () {
-          const el = this.el;
-          el.addEventListener('mouseenter', function () {
-            el.setAttribute('material', 'emissive', '#333');
-          });
-          el.addEventListener('mouseleave', function () {
-            el.setAttribute('material', 'emissive', '#000');
-          });
-        }
-      });
-    </script>
-    <style>
-      body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-      }
-      .vr-ui {
-        position: fixed;
-        top: 10px;
-        left: 10px;
-        color: white;
-        background: rgba(0,0,0,0.7);
-        padding: 10px;
-        border-radius: 5px;
-        z-index: 999;
-        font-size: 14px;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="vr-ui">
-      🥽 VR Mode Active | WASD/Arrow keys to move | Click buttons & green spots | Mouse to look around
-    </div>
-
-    <a-scene vr-mode-ui="enabled: true" background="color: #0a0a23">
-      <a-assets>
-        <!-- Preload some textures and sounds -->
-        <a-mixin id="glow-text" 
-                 text="font: kelsonsans; 
-                       align: center; 
-                       color: #ffffff; 
-                       shader: msdf"
-                 material="shader: msdf; alphaTest: 0.5"></a-mixin>
-      </a-assets>
-
-      <!-- ENVIRONMENT -->
-      <!-- Starfield background -->
-      <a-sky color="#0a0a23"></a-sky>
-      
-      <!-- Stars -->
-      <a-entity id="stars">
-        <a-sphere position="10 5 -15" radius="0.1" color="#ffffff" opacity="0.8"></a-sphere>
-        <a-sphere position="-8 8 -20" radius="0.05" color="#ffffff" opacity="0.6"></a-sphere>
-        <a-sphere position="15 -3 -25" radius="0.08" color="#ffffff" opacity="0.9"></a-sphere>
-        <a-sphere position="-12 -5 -18" radius="0.06" color="#ffffff" opacity="0.7"></a-sphere>
-        <a-sphere position="20 10 -30" radius="0.1" color="#ffffff" opacity="0.8"></a-sphere>
-        <a-sphere position="-15 12 -22" radius="0.07" color="#ffffff" opacity="0.5"></a-sphere>
-        <a-sphere position="5 -8 -28" radius="0.09" color="#ffffff" opacity="0.8"></a-sphere>
-        <a-sphere position="-20 2 -35" radius="0.05" color="#ffffff" opacity="0.6"></a-sphere>
-      </a-entity>
-
-      <!-- Ambient lighting -->
-      <a-light type="ambient" intensity="0.4"></a-light>
-      <a-light type="directional" position="2 4 5" intensity="0.3"></a-light>
-
-      <!-- HERO SECTION - Central Platform -->
-      <a-cylinder position="0 -0.5 -8" 
-                  radius="6" 
-                  height="0.2" 
-                  color="#1a1a3a" 
-                  opacity="0.8"
-                  hover-glow></a-cylinder>
-      
-      <!-- Main title with gradient effect -->
-      <a-text value="Welcome to PortalVR" 
-              position="0 4 -8" 
-              mixin="glow-text"
-              width="12"
-              color="#4f46e5"
-              float-animation
-              text="font: kelsonsans; align: center; width: 24"></a-text>
-      
-      <a-text value="Build your own VR or AR world in YSWS" 
-              position="0 3.2 -8" 
-              mixin="glow-text"
-              width="8"
-              color="#e879f9"
-              text="align: center; width: 16"></a-text>
-      
-      <a-text value="Get rewarded with a real headset 🥽✨" 
-              position="0 2.6 -8" 
-              mixin="glow-text"
-              width="6"
-              color="#fbbf24"
-              text="align: center; width: 12"></a-text>
-
-      <!-- Interactive "Join Sprint" button -->
-      <a-box position="0 1.5 -7" 
-             width="3" 
-             height="0.8" 
-             depth="0.2" 
-             color="#ec4899" 
-             hover-glow
-             animation="property: rotation; to: 0 5 0; dur: 10000; loop: true"
-             class="clickable"
-             id="join-sprint-btn">
-        <a-text value="Join the Sprint →" 
-                position="0 0 0.11" 
-                color="#ffffff" 
-                align="center" 
-                width="8"></a-text>
-      </a-box>
-
-      <!-- Back to Index button -->
-      <a-box position="0 0.5 -7" 
-             width="2.5" 
-             height="0.6" 
-             depth="0.2" 
-             color="#10b981" 
-             hover-glow
-             class="clickable"
-             id="back-to-index-btn">
-        <a-text value="← Back to Main Site" 
-                position="0 0 0.11" 
-                color="#ffffff" 
-                align="center" 
-                width="6"></a-text>
-      </a-box>
-
-      <!-- ABOUT SECTION - Left Platform -->
-      <a-cylinder position="-10 -0.5 -5" 
-                  radius="4" 
-                  height="0.2" 
-                  color="#2d1b69" 
-                  opacity="0.8"></a-cylinder>
-      
-      <a-text value="What is PortalVR?" 
-              position="-10 3 -5" 
-              mixin="glow-text"
-              width="8"
-              color="#60a5fa"
-              text="align: center; width: 16"></a-text>
-      
-      <a-text value="Create VR/AR experiences using:\n• Unity 🎮\n• WebXR 🌐\n• Phone AR 📱\n\nBuild in ~5-20 hours\nGet a real VR headset!" 
-              position="-10 1.8 -5" 
-              mixin="glow-text"
-              width="5"
-              color="#d1d5db"
-              text="align: center; width: 10"></a-text>
-
-      <!-- PROJECTS SECTION - Right Platform -->
-      <a-cylinder position="10 -0.5 -5" 
-                  radius="4" 
-                  height="0.2" 
-                  color="#1e3a8a" 
-                  opacity="0.8"></a-cylinder>
-      
-      <a-text value="🌟 Inspirational Projects" 
-              position="10 3 -5" 
-              mixin="glow-text"
-              width="7"
-              color="#34d399"
-              text="align: center; width: 14"></a-text>
-
-      <!-- Project 1 -->
-      <a-box position="10 2.2 -4" 
-             width="3.5" 
-             height="1.2" 
-             depth="0.1" 
-             color="#374151" 
-             hover-glow>
-        <a-text value="🧠 VR Meditation Space\nPeaceful guided meditation\nroom with calming sounds" 
-                position="0 0 0.06" 
-                color="#ffffff" 
-                align="center" 
-                width="6"></a-text>
-      </a-box>
-
-      <!-- Project 2 -->
-      <a-box position="10 0.8 -4" 
-             width="3.5" 
-             height="1.2" 
-             depth="0.1" 
-             color="#374151" 
-             hover-glow>
-        <a-text value="🚀 Space Explorer AR\nScan tables & launch planets\ninto orbit with mobile AR" 
-                position="0 0 0.06" 
-                color="#ffffff" 
-                align="center" 
-                width="6"></a-text>
-      </a-box>
-
-      <!-- Project 3 -->
-      <a-box position="10 -0.6 -4" 
-             width="3.5" 
-             height="1.2" 
-             depth="0.1" 
-             color="#374151" 
-             hover-glow>
-        <a-text value="🏛️ VR History Tour\nWalk through ancient Greece\nwith 3D voice narration" 
-                position="0 0 0.06" 
-                color="#ffffff" 
-                align="center" 
-                width="6"></a-text>
-      </a-box>
-
-      <!-- PRIZES SECTION - Back Platform -->
-      <a-cylinder position="0 -0.5 -15" 
-                  radius="5" 
-                  height="0.2" 
-                  color="#7c2d12" 
-                  opacity="0.8"></a-cylinder>
-      
-      <a-text value="🎁 What You Get" 
-              position="0 3.5 -15" 
-              mixin="glow-text"
-              width="8"
-              color="#fbbf24"
-              text="align: center; width: 16"></a-text>
-      
-      <a-text value="Complete your project and we'll ship you\na VR headset (up to $50) via Amazon\n\nIt won't be a Meta Quest, but you can\ntest your creation in real VR! 🥽" 
-              position="0 2.2 -15" 
-              mixin="glow-text"
-              width="6"
-              color="#d1d5db"
-              text="align: center; width: 12"></a-text>
-
-      <!-- FAQ SECTION - Interactive panels around the user -->
-      <a-text value="❓ Frequently Asked Questions" 
-              position="0 4 -20" 
-              mixin="glow-text"
-              width="8"
-              color="#f472b6"
-              text="align: center; width: 16"></a-text>
-
-      <!-- FAQ Panel 1 -->
-      <a-box position="-6 2.5 -12" 
-             width="4" 
-             height="1.5" 
-             depth="0.1" 
-             color="#1f2937" 
-             rotation="0 15 0"
-             hover-glow>
-        <a-text value="How much time do I need?\nAround 5–20 hours is great!\nYou can work solo or with a team." 
-                position="0 0 0.06" 
-                color="#34d399" 
-                align="center" 
-                width="7"></a-text>
-      </a-box>
-
-      <!-- FAQ Panel 2 -->
-      <a-box position="6 2.5 -12" 
-             width="4" 
-             height="1.5" 
-             depth="0.1" 
-             color="#1f2937" 
-             rotation="0 -15 0"
-             hover-glow>
-        <a-text value="Can I use my phone for AR?\nYes! Use 8thWall, Adobe Aero,\nor Unity AR Foundation." 
-                position="0 0 0.06" 
-                color="#60a5fa" 
-                align="center" 
-                width="7"></a-text>
-      </a-box>
-
-      <!-- FAQ Panel 3 -->
-      <a-box position="-6 0.8 -12" 
-             width="4" 
-             height="1.5" 
-             depth="0.1" 
-             color="#1f2937" 
-             rotation="0 15 0"
-             hover-glow>
-        <a-text value="Do I get to keep the headset?\nYes, it's yours to keep and use\nfor future projects!" 
-                position="0 0 0.06" 
-                color="#f472b6" 
-                align="center" 
-                width="7"></a-text>
-      </a-box>
-
-      <!-- FAQ Panel 4 -->
-      <a-box position="6 0.8 -12" 
-             width="4" 
-             height="1.5" 
-             depth="0.1" 
-             color="#1f2937" 
-             rotation="0 -15 0"
-             hover-glow>
-        <a-text value="Will it support SteamVR?\nNo, this is a basic mobile VR\nheadset (no PC or 6DOF support)." 
-                position="0 0 0.06" 
-                color="#fbbf24" 
-                align="center" 
-                width="7"></a-text>
-      </a-box>
-
-      <!-- FINAL CTA SECTION -->
-      <a-cylinder position="0 -0.5 -25" 
-                  radius="6" 
-                  height="0.2" 
-                  color="#4c1d95" 
-                  opacity="0.9"></a-cylinder>
-      
-      <a-text value="🌌 Ready to enter the Portal?" 
-              position="0 3 -25" 
-              mixin="glow-text"
-              width="10"
-              color="#a855f7"
-              text="align: center; width: 20"
-              float-animation></a-text>
-      
-      <a-text value="Join the challenge, bend reality, and earn your headset." 
-              position="0 2.2 -25" 
-              mixin="glow-text"
-              width="7"
-              color="#e879f9"
-              text="align: center; width: 14"></a-text>
-
-      <!-- Join Discord Button -->
-      <a-box position="0 1.2 -24" 
-             width="4" 
-             height="1" 
-             depth="0.3" 
-             color="#5865f2" 
-             hover-glow
-             animation="property: scale; to: 1.1 1.1 1.1; dur: 2000; loop: true; dir: alternate"
-             class="clickable"
-             id="discord-btn">
-        <a-text value="Join #portal-vr →" 
-                position="0 0 0.16" 
-                color="#ffffff" 
-                align="center" 
-                width="8"></a-text>
-      </a-box>
-
-      <!-- Footer -->
-      <a-text value="Made with ❤️ by Anirudh Sahu | YSWS 2025" 
-              position="0 -1 -25" 
-              mixin="glow-text"
-              width="4"
-              color="#6b7280"
-              text="align: center; width: 8"></a-text>
-
-      <!-- NAVIGATION HELPERS -->
-      <!-- Floor grid for spatial reference -->
-      <a-entity id="floor-grid">
-        <a-plane position="0 -1 -8" 
-                 rotation="-90 0 0" 
-                 width="50" 
-                 height="50" 
-                 color="#1a1a3a" 
-                 opacity="0.3"
-                 material="wireframe: true"></a-plane>
-      </a-entity>
-
-      <!-- Teleportation spots -->
-      <a-cylinder position="0 -0.9 0" radius="0.5" height="0.02" color="#00ff00" opacity="0.6" class="teleport-spot"></a-cylinder>
-      <a-cylinder position="-10 -0.9 -5" radius="0.5" height="0.02" color="#00ff00" opacity="0.6" class="teleport-spot"></a-cylinder>
-      <a-cylinder position="10 -0.9 -5" radius="0.5" height="0.02" color="#00ff00" opacity="0.6" class="teleport-spot"></a-cylinder>
-      <a-cylinder position="0 -0.9 -15" radius="0.5" height="0.02" color="#00ff00" opacity="0.6" class="teleport-spot"></a-cylinder>
-      <a-cylinder position="0 -0.9 -25" radius="0.5" height="0.02" color="#00ff00" opacity="0.6" class="teleport-spot"></a-cylinder>
-
-      <!-- CAMERA & CONTROLS -->
-      <a-entity id="cameraRig" 
-                movement-controls="fly: false" 
-                position="0 1.6 0">
-        <a-entity camera 
-                  look-controls="pointerLockEnabled: true"
-                  wasd-controls="acceleration: 20">
-          <a-cursor position="0 0 -1"
-                    geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
-                    material="color: white; shader: flat"
-                    animation__click="property: scale; startEvents: click; easing: easeInCubic; dur: 150; from: 0.1 0.1 0.1; to: 1 1 1"
-                    animation__fusing="property: scale; startEvents: fusing; easing: easeInCubic; dur: 1500; from: 1 1 1; to: 0.1 0.1 0.1"></a-cursor>
-        </a-entity>
-      </a-entity>
-
-      <!-- Simple teleportation system -->
-      <script>
-        // Wait for A-Frame to load
-        document.addEventListener('DOMContentLoaded', function() {
-          // Teleportation system
-          document.querySelectorAll('.teleport-spot').forEach(spot => {
-            spot.addEventListener('click', function() {
-              const position = this.getAttribute('position');
-              const cameraRig = document.querySelector('#cameraRig');
-              cameraRig.setAttribute('position', `${position.x} 1.6 ${position.z}`);
-            });
-          });
-
-          // Button click handlers with actual functionality
-          document.querySelectorAll('.clickable').forEach(element => {
-            element.addEventListener('click', function() {
-              // Visual feedback
-              this.setAttribute('animation__click', {
-                property: 'scale',
-                to: '1.1 1.1 1.1',
-                dur: 200
-              });
-              setTimeout(() => {
-                this.setAttribute('animation__click', {
-                  property: 'scale',
-                  to: '1 1 1',
-                  dur: 200
-                });
-              }, 200);
-
-              // Handle specific button actions
-              const buttonId = this.getAttribute('id');
-              
-              if (buttonId === 'join-sprint-btn') {
-                // Scroll to the join section or show info
-                window.open('https://hackclub.slack.com/archives/C096CPJ1HCN', '_blank');
-              } else if (buttonId === 'discord-btn') {
-                // Open Slack (Hack Club Slack channel)
-                window.open('https://hackclub.slack.com/archives/C096CPJ1HCN', '_blank');
-              } else if (buttonId === 'back-to-index-btn') {
-                // Go back to main site
-                window.location.href = 'index.html';
-              }
-            });
-          });
-
-          // Add hover sound feedback (optional)
-          document.querySelectorAll('.clickable, .teleport-spot').forEach(element => {
-            element.addEventListener('mouseenter', function() {
-              // Could add hover sound here
-              console.log('Hovering over interactive element');
-            });
-          });
-        });
-      </script>
-    </a-scene>
-  </body>
+<head>
+<meta charset="UTF-8" />
+<title>PortalVR - Full VR Experience</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+<script>
+AFRAME.registerComponent('float-animation', {
+init: function () {
+this.el.setAttribute('animation', {
+property: 'position',
+to: this.el.getAttribute('position').x + ' ' + (this.el.getAttribute('position').y + 0.3) + ' ' + this.el.getAttribute('position').z,
+dur: 3000,
+easing: 'easeInOutSine',
+loop: true,
+dir: 'alternate'
+});
+}
+});
+// Component for hover effects
+AFRAME.registerComponent('hover-glow', {
+init: function () {
+const el = this.el;
+el.addEventListener('mouseenter', function () {
+el.setAttribute('material', 'emissive', '#333');
+});
+el.addEventListener('mouseleave', function () {
+el.setAttribute('material', 'emissive', '#000');
+});
+}
+});
+</script>
+<style>
+body {
+margin: 0;
+font-family: 'Orbitron', monospace;
+}
+.vr-ui {
+position: fixed;
+top: 10px;
+left: 10px;
+color: white;
+background: rgba(0,0,0,0.7);
+padding: 10px;
+border-radius: 5px;
+z-index: 999;
+font-size: 14px;
+border: 1px solid #002fff;
+backdrop-filter: blur(5px);
+}
+</style>
+</head>
+<body>
+<div class="vr-ui">
+VR Mode Active | WASD/Arrow keys to move | Click green pads to teleport | Mouse to look around
+</div>
+<a-scene vr-mode-ui="enabled: true" background="color: #000">
+<a-assets>
+<a-mixin id="glow-text"
+text="font: kelsonsans;
+align: center;
+color: #ffffff;
+shader: msdf"
+material="shader: msdf; alphaTest: 0.5"></a-mixin>
+</a-assets>
+<a-sky color="#000"></a-sky>
+<a-entity id="blue-particles" position="0 8 -15">
+<a-sphere color="#00d4ff" radius="0.03" position="2 0 1"
+animation="property: position; to: -2 3 -1; dur: 8000; easing: easeInOutSine; loop: true; dir: alternate"></a-sphere>
+<a-sphere color="#0099ff" radius="0.04" position="-3 1 2"
+animation="property: position; to: 3 -2 -2; dur: 12000; easing: easeInOutSine; loop: true; dir: alternate"></a-sphere>
+<a-sphere color="#0066ff" radius="0.02" position="1 -1 -1"
+animation="property: position; to: -1 4 1; dur: 10000; easing: easeInOutSine; loop: true; dir: alternate"></a-sphere>
+<a-sphere color="#4da6ff" radius="0.05" position="0 2 0"
+animation="property: position; to: 2 -1 3; dur: 9000; easing: easeInOutSine; loop: true; dir: alternate"></a-sphere>
+</a-entity>
+<a-entity id="cyan-particles" position="5 6 -10">
+<a-sphere color="#00fff7" radius="0.03" position="1 0 -1"
+animation="property: position; to: -3 2 1; dur: 11000; easing: easeInOutSine; loop: true; dir: alternate"></a-sphere>
+<a-sphere color="#66ffff" radius="0.04" position="-2 2 0"
+animation="property: position; to: 2 -1 -2; dur: 7000; easing: easeInOutSine; loop: true; dir: alternate"></a-sphere>
+<a-sphere color="#00cccc" radius="0.02" position="0 -1 2"
+animation="property: position; to: 1 3 -1; dur: 13000; easing: easeInOutSine; loop: true; dir: alternate"></a-sphere>
+</a-entity>
+<a-entity id="pink-particles" position="-5 7 -12">
+<a-sphere color="#ff00d4" radius="0.03" position="1 1 0"
+animation="property: position; to: -2 -1 2; dur: 9500; easing: easeInOutSine; loop: true; dir: alternate"></a-sphere>
+<a-sphere color="#ff66cc" radius="0.04" position="-1 0 -1"
+animation="property: position; to: 3 2 1; dur: 8500; easing: easeInOutSine; loop: true; dir: alternate"></a-sphere>
+<a-sphere color="#cc0099" radius="0.02" position="2 -2 1"
+animation="property: position; to: -1 3 -2; dur: 10500; easing: easeInOutSine; loop: true; dir: alternate"></a-sphere>
+</a-entity>
+<a-entity id="portal-rings" position="0 10 -14">
+<a-torus color="#00d4ff" radius="8" radius-tubular="0.1"
+animation="property: rotation; to: 0 360 0; dur: 20000; easing: linear; loop: true"
+opacity="0.4"></a-torus>
+<a-torus color="#ff00d4" radius="6" radius-tubular="0.08"
+animation="property: rotation; to: 0 -360 0; dur: 15000; easing: linear; loop: true"
+opacity="0.5"></a-torus>
+<a-torus color="#00fff7" radius="4" radius-tubular="0.06"
+animation="property: rotation; to: 0 360 0; dur: 10000; easing: linear; loop: true"
+opacity="0.6"></a-torus>
+</a-entity>
+<a-entity id="energy-wisps">
+<a-cylinder color="#00fff7" height="0.1" radius="0.02" position="8 5 -8"
+animation="property: position; to: -8 8 -12; dur: 15000; easing: easeInOutSine; loop: true; dir: alternate"
+animation__rotate="property: rotation; to: 0 0 720; dur: 15000; easing: linear; loop: true"
+opacity="0.7"></a-cylinder>
+<a-cylinder color="#ff00d4" height="0.1" radius="0.02" position="-7 6 -10"
+animation="property: position; to: 9 4 -6; dur: 18000; easing: easeInOutSine; loop: true; dir: alternate"
+animation__rotate="property: rotation; to: 0 0 -720; dur: 18000; easing: linear; loop: true"
+opacity="0.6"></a-cylinder>
+<a-cylinder color="#00d4ff" height="0.1" radius="0.02" position="3 8 -15"
+animation="property: position; to: -5 3 -8; dur: 12000; easing: easeInOutSine; loop: true; dir: alternate"
+animation__rotate="property: rotation; to: 0 0 360; dur: 12000; easing: linear; loop: true"
+opacity="0.8"></a-cylinder>
+</a-entity>
+<a-entity id="energy-spheres">
+<a-sphere color="#00fff7" radius="0.5" position="10 8 -20"
+animation="property: scale; to: 1.5 1.5 1.5; dur: 3000; easing: easeInOutSine; loop: true; dir: alternate"
+animation__glow="property: components.material.material.opacity; to: 0.2; dur: 3000; easing: easeInOutSine; loop: true; dir: alternate"
+opacity="0.6"></a-sphere>
+<a-sphere color="#ff00d4" radius="0.4" position="-12 6 -18"
+animation="property: scale; to: 1.3 1.3 1.3; dur: 4000; easing: easeInOutSine; loop: true; dir: alternate"
+animation__glow="property: components.material.material.opacity; to: 0.1; dur: 4000; easing: easeInOutSine; loop: true; dir: alternate"
+opacity="0.5"></a-sphere>
+<a-sphere color="#00d4ff" radius="0.3" position="0 12 -25"
+animation="property: scale; to: 1.8 1.8 1.8; dur: 5000; easing: easeInOutSine; loop: true; dir: alternate"
+animation__glow="property: components.material.material.opacity; to: 0.3; dur: 5000; easing: easeInOutSine; loop: true; dir: alternate"
+opacity="0.7"></a-sphere>
+</a-entity>
+<a-entity id="atmospheric-mist">
+<a-plane color="#00d4ff" width="30" height="15" position="0 8 -30"
+animation="property: position; to: 5 12 -35; dur: 25000; easing: easeInOutSine; loop: true; dir: alternate"
+animation__rotate="property: rotation; to: 5 10 0; dur: 25000; easing: easeInOutSine; loop: true; dir: alternate"
+opacity="0.08"></a-plane>
+<a-plane color="#ff00d4" width="25" height="12" position="15 6 -28"
+animation="property: position; to: -10 10 -32; dur: 30000; easing: easeInOutSine; loop: true; dir: alternate"
+animation__rotate="property: rotation; to: -3 -8 5; dur: 30000; easing: easeInOutSine; loop: true; dir: alternate"
+opacity="0.06"></a-plane>
+<a-plane color="#00fff7" width="20" height="10" position="-20 9 -26"
+animation="property: position; to: 8 5 -29; dur: 22000; easing: easeInOutSine; loop: true; dir: alternate"
+animation__rotate="property: rotation; to: 8 12 -3; dur: 22000; easing: easeInOutSine; loop: true; dir: alternate"
+opacity="0.05"></a-plane>
+</a-entity>
+<a-entity id="star-field">
+<a-sphere color="#ffffff" radius="0.01" position="15 12 -40" opacity="0.8"></a-sphere>
+<a-sphere color="#00d4ff" radius="0.015" position="-18 15 -42" opacity="0.6"></a-sphere>
+<a-sphere color="#ff00d4" radius="0.012" position="22 8 -38" opacity="0.7"></a-sphere>
+<a-sphere color="#00fff7" radius="0.01" position="-25 20 -45" opacity="0.9"></a-sphere>
+<a-sphere color="#ffffff" radius="0.013" position="8 25 -43" opacity="0.5"></a-sphere>
+<a-sphere color="#0099ff" radius="0.01" position="-12 18 -41" opacity="0.8"></a-sphere>
+<a-sphere color="#cc00ff" radius="0.014" position="28 6 -39" opacity="0.6"></a-sphere>
+<a-sphere color="#00cccc" radius="0.011" position="-8 22 -44" opacity="0.7"></a-sphere>
+</a-entity>
+<a-entity id="energy-beams">
+<a-cylinder color="#00fff7" height="20" radius="0.05" position="12 10 -22"
+animation="property: components.material.material.opacity; to: 0.2; dur: 2000; easing: easeInOutSine; loop: true; dir: alternate"
+animation__rotate="property: rotation; to: 0 0 360; dur: 8000; easing: linear; loop: true"
+opacity="0.8"></a-cylinder>
+<a-cylinder color="#ff00d4" height="15" radius="0.04" position="-15 8 -26"
+animation="property: components.material.material.opacity; to: 0.3; dur: 3000; easing: easeInOutSine; loop: true; dir: alternate"
+animation__rotate="property: rotation; to: 0 0 -360; dur: 12000; easing: linear; loop: true"
+opacity="0.7"></a-cylinder>
+<a-cylinder color="#00d4ff" height="25" radius="0.03" position="0 12 -35"
+animation="property: components.material.material.opacity; to: 0.1; dur: 4000; easing: easeInOutSine; loop: true; dir: alternate"
+animation__rotate="property: rotation; to: 0 0 720; dur: 15000; easing: linear; loop: true"
+opacity="0.6"></a-cylinder>
+<a-cylinder color="#66ffff" height="8" radius="0.02" position="8 6 -18" rotation="45 30 0"
+animation="property: position; to: -8 12 -28; dur: 10000; easing: easeInOutSine; loop: true; dir: alternate"
+animation__glow="property: components.material.material.opacity; to: 0.2; dur: 2500; easing: easeInOutSine; loop: true; dir: alternate"
+opacity="0.5"></a-cylinder>
+<a-cylinder color="#ff66cc" height="6" radius="0.025" position="-10 4 -20" rotation="-30 60 0"
+animation="property: position; to: 10 10 -30; dur: 14000; easing: easeInOutSine; loop: true; dir: alternate"
+animation__glow="property: components.material.material.opacity; to: 0.3; dur: 3500; easing: easeInOutSine; loop: true; dir: alternate"
+opacity="0.6"></a-cylinder>
+</a-entity>
+<a-entity id="portal-gateways">
+<a-torus color="#00fff7" radius="4" radius-tubular="0.3" position="0 6 -40"
+animation="property: rotation; to: 0 360 0; dur: 25000; easing: linear; loop: true"
+animation__scale="property: scale; to: 1.1 1.1 1.1; dur: 8000; easing: easeInOutSine; loop: true; dir: alternate"
+opacity="0.4"></a-torus>
+<a-torus color="#ff00d4" radius="2" radius-tubular="0.1" position="15 4 -30" rotation="0 45 0"
+animation="property: rotation; to: 0 405 0; dur: 18000; easing: linear; loop: true"
+opacity="0.5"></a-torus>
+<a-torus color="#00d4ff" radius="1.5" radius-tubular="0.08" position="-18 5 -32" rotation="0 -30 0"
+animation="property: rotation; to: 0 330 0; dur: 22000; easing: linear; loop: true"
+opacity="0.6"></a-torus>
+</a-entity>
+<a-entity id="energy-grid">
+<a-box color="#00d4ff" width="30" height="0.02" depth="0.02" position="0 8 -25"
+animation="property: components.material.material.opacity; to: 0.1; dur: 5000; easing: easeInOutSine; loop: true; dir: alternate"
+opacity="0.3"></a-box>
+<a-box color="#ff00d4" width="25" height="0.02" depth="0.02" position="0 6 -30"
+animation="property: components.material.material.opacity; to: 0.2; dur: 7000; easing: easeInOutSine; loop: true; dir: alternate"
+opacity="0.25"></a-box>
+<a-box color="#00fff7" width="35" height="0.02" depth="0.02" position="0 10 -20"
+animation="property: components.material.material.opacity; to: 0.05; dur: 4000; easing: easeInOutSine; loop: true; dir: alternate"
+opacity="0.2"></a-box>
+<a-box color="#66ffff" width="0.02" height="15" depth="0.02" position="10 7 -25"
+animation="property: components.material.material.opacity; to: 0.1; dur: 6000; easing: easeInOutSine; loop: true; dir: alternate"
+opacity="0.25"></a-box>
+<a-box color="#ff66cc" width="0.02" height="12" depth="0.02" position="-12 6 -28"
+animation="property: components.material.material.opacity; to: 0.15; dur: 8000; easing: easeInOutSine; loop: true; dir: alternate"
+opacity="0.3"></a-box>
+</a-entity>
+<a-entity id="floating-particles">
+<a-sphere position="8 3 -12" radius="0.05" color="#00d4ff" opacity="0.7"
+animation="property: position; to: 12 8 -15; dur: 8000; loop: true; dir: alternate; easing: easeInOutSine"></a-sphere>
+<a-sphere position="-6 5 -18" radius="0.03" color="#ff00d4" opacity="0.6"
+animation="property: position; to: -10 2 -22; dur: 12000; loop: true; dir: alternate; easing: easeInOutSine"></a-sphere>
+<a-sphere position="15 -2 -20" radius="0.04" color="#053cd4" opacity="0.8"
+animation="property: position; to: 18 -6 -25; dur: 10000; loop: true; dir: alternate; easing: easeInOutSine"></a-sphere>
+<a-sphere position="-12 -3 -16" radius="0.06" color="#00ff88" opacity="0.5"
+animation="property: position; to: -8 -7 -12; dur: 9000; loop: true; dir: alternate; easing: easeInOutSine"></a-sphere>
+</a-entity>
+<a-entity id="portal-rings">
+<a-ring position="20 8 -30" radius-inner="2" radius-outer="2.2" color="#00d4ff" opacity="0.4"
+animation="property: rotation; to: 0 360 0; dur: 20000; loop: true; easing: linear"></a-ring>
+<a-ring position="-18 -5 -35" radius-inner="1.5" radius-outer="1.7" color="#ff00d4" opacity="0.3"
+animation="property: rotation; to: 360 0 0; dur: 15000; loop: true; easing: linear"></a-ring>
+<a-ring position="25 -8 -40" radius-inner="3" radius-outer="3.3" color="#053cd4" opacity="0.2"
+animation="property: rotation; to: 0 0 360; dur: 25000; loop: true; easing: linear"></a-ring>
+</a-entity>
+<a-entity id="energy-wisps">
+<a-cylinder position="5 4 -10" radius="0.02" height="1.5" color="#00d4ff" opacity="0.6"
+animation="property: rotation; to: 45 180 90; dur: 6000; loop: true; dir: alternate; easing: easeInOutSine"></a-cylinder>
+<a-cylinder position="-8 2 -14" radius="0.015" height="2" color="#ff00d4" opacity="0.5"
+animation="property: rotation; to: -30 -90 45; dur: 8000; loop: true; dir: alternate; easing: easeInOutSine"></a-cylinder>
+<a-cylinder position="12 -3 -18" radius="0.03" height="1.2" color="#00ff88" opacity="0.7"
+animation="property: rotation; to: 60 270 -30; dur: 7000; loop: true; dir: alternate; easing: easeInOutSine"></a-cylinder>
+</a-entity>
+<a-entity id="stars">
+<a-sphere position="10 5 -15" radius="0.1" color="#00d4ff" opacity="0.8"></a-sphere>
+<a-sphere position="-8 8 -20" radius="0.05" color="#ff00d4" opacity="0.6"></a-sphere>
+<a-sphere position="15 -3 -25" radius="0.08" color="#053cd4" opacity="0.9"></a-sphere>
+<a-sphere position="-12 -5 -18" radius="0.06" color="#00ff88" opacity="0.7"></a-sphere>
+<a-sphere position="20 10 -30" radius="0.1" color="#00d4ff" opacity="0.8"></a-sphere>
+<a-sphere position="-15 12 -22" radius="0.07" color="#ff00d4" opacity="0.5"></a-sphere>
+<a-sphere position="5 -8 -28" radius="0.09" color="#053cd4" opacity="0.8"></a-sphere>
+<a-sphere position="-20 2 -35" radius="0.05" color="#00ff88" opacity="0.6"></a-sphere>
+</a-entity>
+<a-light type="ambient" intensity="0.4" color="#001133"></a-light>
+<a-light type="directional" position="2 4 5" intensity="0.3" color="#00d4ff"></a-light>
+<a-light type="point" position="0 3 -8" intensity="0.5" color="#00d4ff" distance="15"
+animation="property: color; to: #ff00d4; dur: 8000; loop: true; dir: alternate"></a-light>
+<a-light type="point" position="-10 2 -5" intensity="0.3" color="#00ff88" distance="10"
+animation="property: color; to: #053cd4; dur: 6000; loop: true; dir: alternate"></a-light>
+<a-light type="point" position="10 2 -5" intensity="0.4" color="#ff00d4" distance="12"
+animation="property: color; to: #00d4ff; dur: 10000; loop: true; dir: alternate"></a-light>
+<a-light type="point" position="0 8 -15" intensity="0.6" color="#00fff7" distance="20"
+animation="property: position; to: 5 12 -20; dur: 15000; easing: easeInOutSine; loop: true; dir: alternate"
+animation__color="property: color; to: #ff00d4; dur: 12000; loop: true; dir: alternate"></a-light>
+<a-light type="point" position="-8 6 -12" intensity="0.5" color="#00d4ff" distance="18"
+animation="property: position; to: 8 10 -8; dur: 18000; easing: easeInOutSine; loop: true; dir: alternate"
+animation__color="property: color; to: #00ff88; dur: 9000; loop: true; dir: alternate"></a-light>
+<a-light type="point" position="6 10 -18" intensity="0.4" color="#ff66cc" distance="16"
+animation="property: position; to: -6 4 -10; dur: 20000; easing: easeInOutSine; loop: true; dir: alternate"
+animation__color="property: color; to: #4da6ff; dur: 14000; loop: true; dir: alternate"></a-light>
+<a-light type="point" position="0 10 -25" intensity="0.8" color="#00d4ff" distance="25"
+animation="property: intensity; to: 1.2; dur: 5000; easing: easeInOutSine; loop: true; dir: alternate"
+animation__color="property: color; to: #ff00d4; dur: 10000; loop: true; dir: alternate"></a-light>
+<a-light type="directional" position="20 15 -40" intensity="0.2" color="#001166"
+animation="property: color; to: #330033; dur: 25000; loop: true; dir: alternate"></a-light>
+<a-light type="directional" position="-20 12 -35" intensity="0.15" color="#003366"
+animation="property: color; to: #660033; dur: 30000; loop: true; dir: alternate"></a-light>
+<a-cylinder position="0 -0.5 -8"
+radius="6"
+height="0.2"
+color="#002fff"
+opacity="0.3"
+hover-glow></a-cylinder>
+<a-text value="PORTAL VR"
+position="0 4.5 -8"
+mixin="glow-text"
+width="16"
+color="#00fff7"
+float-animation
+text="font: kelsonsans; align: center; width: 32"></a-text>
+<a-text value="You Ship VR application"
+position="0 3.5 -8"
+mixin="glow-text"
+width="8"
+color="#00d4ff"
+text="align: center; width: 16"></a-text>
+<a-text value="We Ship VR HEADSET to test your application!"
+position="0 2.8 -8"
+mixin="glow-text"
+width="6"
+color="#ff00d4"
+text="align: center; width: 12"></a-text>
+<a-text value="DEADLINE - 16th August"
+position="0 2.1 -8"
+mixin="glow-text"
+width="6"
+color="#ff6b6b"
+text="align: center; width: 12"></a-text>
+<a-box position="-3 1.8 -7"
+width="2"
+height="0.8"
+depth="0.1"
+color="#002fff"
+opacity="0.3">
+<a-text value="HIGH\nCREATIVITY"
+position="0 0 0.06"
+color="#00d4ff"
+align="center"
+width="4"></a-text>
+</a-box>
+<a-box position="0 1.8 -7"
+width="2"
+height="0.8"
+depth="0.1"
+color="#002fff"
+opacity="0.3">
+<a-text value="5-20Hr\nTIME"
+position="0 0 0.06"
+color="#ff00d4"
+align="center"
+width="4"></a-text>
+</a-box>
+<a-box position="3 1.8 -7"
+width="2"
+height="0.8"
+depth="0.1"
+color="#002fff"
+opacity="0.3">
+<a-text value="$20-$70\nVALUE"
+position="0 0 0.06"
+color="#00ff88"
+align="center"
+width="4"></a-text>
+</a-box>
+<a-box position="0 0.8 -7"
+width="3.5"
+height="0.8"
+depth="0.2"
+color="#ffffff"
+material="shader: standard; metalness: 0.1; roughness: 0.2; emissive: #222222"
+opacity="1.0"
+hover-glow
+class="clickable"
+id="submit-btn">
+<a-text value="Submit NOW"
+position="0 0 0.11"
+color="#000000"
+material="shader: msdf"
+align="center"
+width="6"
+font="kelsonsans"></a-text>
+<a-box position="0 0 -0.05"
+width="3.6"
+height="0.9"
+depth="0.1"
+color="#00d4ff"
+material="shader: flat"
+opacity="0.3"></a-box>
+</a-box>
+<a-box position="0 -0.2 -7"
+width="2.8"
+height="0.6"
+depth="0.2"
+color="#ffffff"
+material="shader: standard; metalness: 0.1; roughness: 0.2; emissive: #222222"
+opacity="1.0"
+hover-glow
+class="clickable"
+id="back-to-index-btn">
+<a-text value="← Back to Main Site"
+position="0 0 0.11"
+color="#000000"
+material="shader: msdf"
+align="center"
+width="5"
+font="kelsonsans"></a-text>
+<a-box position="0 0 -0.05"
+width="2.9"
+height="0.7"
+depth="0.1"
+color="#ff00d4"
+material="shader: flat"
+opacity="0.3"></a-box>
+</a-box>
+<a-box position="0 -1.0 -7"
+width="3.2"
+height="0.6"
+depth="0.2"
+color="#ffffff"
+material="shader: standard; metalness: 0.1; roughness: 0.2; emissive: #222222"
+opacity="1.0"
+hover-glow
+class="clickable"
+id="slack-btn">
+<a-text value="Join #portal-vr on Slack"
+position="0 0 0.11"
+color="#000000"
+material="shader: msdf"
+align="center"
+width="5"
+font="kelsonsans"></a-text>
+<a-box position="0 0 -0.05"
+width="3.3"
+height="0.7"
+depth="0.1"
+color="#00fff7"
+material="shader: flat"
+opacity="0.3"></a-box>
+</a-box>
+<a-cylinder position="-10 -0.5 -5"
+radius="4"
+height="0.2"
+color="#002fff"
+opacity="0.3"></a-cylinder>
+<a-text value="What is PortalVR?"
+position="-10 5 -5"
+mixin="glow-text"
+width="8"
+color="#00d4ff"
+text="align: center; width: 16"></a-text>
+<a-text value="PortalVR is a YSWS where You ship\na VR/AR application/game build using\nUnity, GoDot, WebXR, Phone AR apps\nor whatever you like if it supports VR/AR\n\nBuild something awesome in ~5-20 hours,\nand we'll ship you a VR headset to try it on!"
+position="-10 1.8 -5"
+mixin="glow-text"
+width="5"
+color="#d1d5db"
+text="align: center; width: 10"></a-text>
+text="align: center; width: 10"></a-text>
+<a-cylinder position="10 -0.5 -5"
+radius="4"
+height="0.2"
+color="#002fff"
+opacity="0.3"></a-cylinder>
+<a-text value="Choose Your Tier !!!!"
+position="10 3.5 -5"
+mixin="glow-text"
+width="7"
+color="#00ff88"
+text="align: center; width: 14"></a-text>
+<a-box position="10 2.5 -4"
+width="3.5"
+height="1.2"
+depth="0.1"
+color="#002fff"
+opacity="0.3"
+hover-glow>
+<a-text value="STARTER\n3-5 Hours + Basic Creativity\n$20 Budget\nGoogle Cardboard or Basic Headset"
+position="0 0 0.06"
+color="#00d4ff"
+align="center"
+width="6"></a-text>
+</a-box>
+<a-box position="10 1 -4"
+width="3.5"
+height="1.2"
+depth="0.1"
+color="#7c3aed"
+opacity="0.5"
+hover-glow>
+<a-text value="PRO\n5-10 Hours + Unique + Advanced\n$40 Budget\nAdvanced VR headset"
+position="0 0 0.06"
+color="#ffffff"
+align="center"
+width="6"></a-text>
+</a-box>
+<a-box position="10 -0.5 -4"
+width="3.5"
+height="1.2"
+depth="0.1"
+color="#dc2626"
+opacity="0.5"
+hover-glow>
+<a-text value="LEGENDS\n10-20 Hours + MASTERPIECE\n$70 Budget\nPremium VR headset + controllers"
+position="0 0 0.06"
+color="#ec4899"
+align="center"
+width="6"></a-text>
+</a-box>
+<a-text value="FAQ"
+position="0 4 -12"
+mixin="glow-text"
+width="8"
+color="#00d4ff"
+text="align: center; width: 16"></a-text>
+<a-box position="-6 2.5 -12"
+width="4"
+height="1.5"
+depth="0.1"
+color="#002fff"
+opacity="0.3"
+rotation="0 15 0"
+hover-glow>
+<a-text value="What platforms can I use?\nUnity, Godot, WebXR, Unreal Engine,\nor even phone AR apps"
+position="0 0 0.06"
+color="#00ff88"
+align="center"
+width="7"></a-text>
+</a-box>
+<a-box position="6 2.5 -12"
+width="4"
+height="1.5"
+depth="0.1"
+color="#002fff"
+opacity="0.3"
+rotation="0 -15 0"
+hover-glow>
+<a-text value="Can I use AI or do Vibe Coding?\nA VERY BIG NOOOO, you are supposed\nto create your own application."
+position="0 0 0.06"
+color="#ff00d4"
+align="center"
+width="7"></a-text>
+</a-box>
+<a-box position="-6 0.8 -12"
+width="4"
+height="1.5"
+depth="0.1"
+color="#002fff"
+opacity="0.3"
+rotation="0 15 0"
+hover-glow>
+<a-text value="I'm a complete beginner what to do?\nPerfect!!! The STARTER tier is designed\nfor beginners"
+position="0 0 0.06"
+color="#053cd4"
+align="center"
+width="7"></a-text>
+</a-box>
+<a-box position="6 0.8 -12"
+width="4"
+height="1.5"
+depth="0.1"
+color="#002fff"
+opacity="0.3"
+rotation="0 -15 0"
+hover-glow>
+<a-text value="How is the Headset shipped?\nThe headset will shipped to you through\nAmazon or another reliable source"
+position="0 0 0.06"
+color="#00d4ff"
+align="center"
+width="7"></a-text>
+</a-box>
+<a-box position="-6 2.5 -12"
+width="4"
+height="1.5"
+depth="0.1"
+color="#1f2937"
+rotation="0 15 0"
+hover-glow>
+<a-entity id="floor-grid">
+<a-plane position="0 -1 -8"
+rotation="-90 0 0"
+width="50"
+height="50"
+color="#002fff"
+opacity="0.1"
+material="wireframe: true"></a-plane>
+</a-entity>
+<a-cylinder position="0 -0.9 0" radius="0.5" height="0.02" color="#00ff00" opacity="0.6" class="teleport-spot"></a-cylinder>
+<a-cylinder position="-10 -0.9 -5" radius="0.5" height="0.02" color="#00ff00" opacity="0.6" class="teleport-spot"></a-cylinder>
+<a-cylinder position="10 -0.9 -5" radius="0.5" height="0.02" color="#00ff00" opacity="0.6" class="teleport-spot"></a-cylinder>
+<a-entity id="cameraRig"
+movement-controls="fly: false"
+position="0 0 14">
+<a-entity camera
+look-controls="pointerLockEnabled: true"
+wasd-controls="acceleration: 20">
+<a-cursor position="0 0 -1"
+geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
+material="color: white; shader: flat"
+animation__click="property: scale; startEvents: click; easing: easeInCubic; dur: 150; from: 0.1 0.1 0.1; to: 1 1 1"
+animation__fusing="property: scale; startEvents: fusing; easing: easeInCubic; dur: 1500; from: 1 1 1; to: 0.1 0.1 0.1"></a-cursor>
+</a-entity>
+</a-entity>
+<script>
+// Wait for A-Frame to load
+document.addEventListener('DOMContentLoaded', function() {
+// Teleportation system
+document.querySelectorAll('.teleport-spot').forEach(spot => {
+spot.addEventListener('click', function() {
+const position = this.getAttribute('position');
+const cameraRig = document.querySelector('#cameraRig');
+cameraRig.setAttribute('position', `${position.x} 1.6 ${position.z}`);
+});
+});
+// Button click handlers with actual functionality
+document.querySelectorAll('.clickable').forEach(element => {
+element.addEventListener('click', function() {
+// Visual feedback
+this.setAttribute('animation__click', {
+property: 'scale',
+to: '1.1 1.1 1.1',
+dur: 200
+});
+setTimeout(() => {
+this.setAttribute('animation__click', {
+property: 'scale',
+to: '1 1 1',
+dur: 200
+});
+}, 200);
+// Handle specific button actions
+const buttonId = this.getAttribute('id');
+if (buttonId === 'submit-btn') {
+// Open RSVP form
+window.open('https://forms.fillout.com/t/kKU18T12ipus', '_blank');
+} else if (buttonId === 'slack-btn') {
+// Open Slack (Hack Club Slack channel)
+window.open('https://hackclub.slack.com/archives/C096CPJ1HCN', '_blank');
+} else if (buttonId === 'back-to-index-btn') {
+// Go back to main site
+window.location.href = 'index.html';
+}
+});
+});
+// Add hover sound feedback (optional)
+document.querySelectorAll('.clickable, .teleport-spot').forEach(element => {
+element.addEventListener('mouseenter', function() {
+// Could add hover sound here
+console.log('Hovering over interactive element');
+});
+});
+});
+</script>
+</a-scene>
+</body>
 </html>
